@@ -1,0 +1,39 @@
+locale = C.UTF-8
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+shuffleOpenings = 0
+shuffleOpenings = 0
+Version: xboard 4.9.1 + make ()
+Reset(1, 0) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+StartChildProcess (dir=".") make run
+171 >first : xboard
+protover 2
+180 <first : javac  Bishop.java Board.java Bot.java ChessCONSTANTS.java GameState.java King.java Knight.java Main.java Move.java Pawn.java Piece.java Pieces.java PlaySide.java Position.java Queen.java Rook.java
+970 <first : King.java:1: error: King is not abstract and does not override abstract method getLegalMoves(Board) in Piece
+970 <first : public class King extends Piece {
+970 <first :        ^
+1020 <first : Queen.java:1: error: Queen is not abstract and does not override abstract method getLegalMoves(Board) in Piece
+1020 <first : public class Queen extends Piece {
+1020 <first :        ^
+1022 <first : 2 errors
+1045 <first : make: *** [Makefile:24: Main.jar] Error 1
+10172 >first : new
+random
+10172 >first : level 40 5 0
+10172 >first : post
+10172 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+12151 >first : time 30000
+12160 >first : otim 30000
+book hit = (NULL)
+12160 >first : e2e4
+GameEnds(27, Error writing to first chess program, 2)
+Interrupting first
+15067 >first : result 0-1 {Error writing to first chess program}
+15067 >first : force
+15067 >first : quit
