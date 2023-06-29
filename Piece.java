@@ -17,6 +17,7 @@ public abstract class Piece {
     }
     protected abstract List<Move> getLegalMoves(Board board);
     protected abstract PiecesType getType();
+
     protected boolean addMovesUntil(Board board, List<Move> moves, int r, int c) {
         Piece p = board.getState()[r][c];
         if (p == null) {
@@ -69,22 +70,22 @@ public abstract class Piece {
 
     protected void mimicRookMovement(Board board, List<Move> moves, int row, int column) {
         /* Check moves to the right */
-        for (int c = column + 1; c < ChessCONSTANTS.BOARD_SIZE; c++) {
+        for (int c = column + 1; moveWithinBounds(row, c); c++) {
             if (addMovesUntil(board, moves, row, c)) break;
         }
 
         /* Check moves to the left */
-        for (int c = column - 1; c >= 0; c--) {
+        for (int c = column - 1; moveWithinBounds(row, c); c--) {
             if (addMovesUntil(board, moves, row, c)) break;
         }
 
         /* Check moves up */
-        for (int r = row - 1; r >= 0; r--) {
+        for (int r = row + 1; moveWithinBounds(r, column); r++) {
             if (addMovesUntil(board, moves, r, column)) break;
         }
 
         /* Check moves down */
-        for (int r = row - 1; r >= 0; r--) {
+        for (int r = row - 1; moveWithinBounds(r, column); r--) {
             if (addMovesUntil(board, moves, r, column)) break;
         }
     }
