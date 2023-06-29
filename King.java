@@ -21,6 +21,10 @@ public class King extends Piece {
         PlaySide check = gs.getCheck();
         if (check == this.getPlaySide()) {
             /* The king is in check , so it can move only to the squares that are not under attack */
+            int[] rowOffsets = {1, 1, 1, 0, 0, -1, -1, -1};
+            int[] colOffsets = {1, 0, -1, 1, -1, 1, 0, -1};
+
+
         }
         else {
             int[] rowOffsets = {1, 1, 1, 0, 0, -1, -1, -1};

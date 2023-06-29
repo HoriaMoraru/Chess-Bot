@@ -60,4 +60,23 @@ public class GameState {
     public void removeFromCapturedBlack(Piece piece) {
         this.capturedBlack.remove(piece);
     }
+
+    public void isCheck(Position kingPosition, PlaySide side) {
+        this.check = PlaySide.NONE;
+        List<Move> moves = new ArrayList<>();
+        for (int r = 0; r < ChessCONSTANTS.BOARD_SIZE; r++) {
+            for (int c = 0; c < ChessCONSTANTS.BOARD_SIZE; c++) {
+                Piece p = this.board.getState()[r][c];
+                if (p != null && p.getPlaySide() != side) {
+                    moves.addAll(p.getLegalMoves(this.board));
+                }
+            }
+        }
+        for (Move move : moves) {
+            if (move.getDestination().orElse("").equals(kingPosition.serializePosition())) {
+                this.check = side;
+                break;
+            }
+        }
+    }
 }
