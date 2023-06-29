@@ -19,4 +19,9 @@ public class Rook extends Piece {
 
         return moves;
     }
+
+    @Override
+    protected PiecesType getType() {
+        return PiecesType.ROOK;
+    }
 }

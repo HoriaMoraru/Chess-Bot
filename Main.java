@@ -47,45 +47,21 @@ public class Main {
                 default -> "";
             };
             return move.getSource().orElse("") + move.getDestination().orElse("") + pieceCode;
-        } else if (move.isDropIn() && move.getReplacement().isPresent()) {
-            String pieceCode = switch (move.getReplacement().get()) {
-                case BISHOP -> "B";
-                case KNIGHT -> "N";
-                case ROOK -> "R";
-                case QUEEN -> "Q";
-                case PAWN -> "P";
-                default -> "";
-            };
-            return pieceCode + "@" + move.getDestination();
         } else {
             return "resign";
         }
     }
 
     private static Move deserializeMove(String s) {
-        if (s.charAt(1) == '@') {
-            /* Drop-in */
-
-            Pieces piece = switch (s.charAt(0)) {
-                case 'P' -> Pieces.PAWN;
-                case 'R' -> Pieces.ROOK;
-                case 'B' -> Pieces.BISHOP;
-                case 'N' -> Pieces.KNIGHT;
-                case 'Q' -> Pieces.QUEEN;
-                case 'K' -> Pieces.KING; /* This is an illegal move */
-                default -> null;
-            };
-
-            return Move.dropIn(s.substring(2, 4), piece);
-        } else if (s.length() == 5) {
+         if (s.length() == 5) {
             /* Pawn promotion */
-            Pieces piece = switch (s.charAt(4)) {
-                case 'p' -> Pieces.PAWN; /* This is an illegal move */
-                case 'r' -> Pieces.ROOK;
-                case 'b' -> Pieces.BISHOP;
-                case 'n' -> Pieces.KNIGHT;
-                case 'q' -> Pieces.QUEEN;
-                case 'k' -> Pieces.KING; /* This is an illegal move */
+            PiecesType piece = switch (s.charAt(4)) {
+                case 'p' -> PiecesType.PAWN; /* This is an illegal move */
+                case 'r' -> PiecesType.ROOK;
+                case 'b' -> PiecesType.BISHOP;
+                case 'n' -> PiecesType.KNIGHT;
+                case 'q' -> PiecesType.QUEEN;
+                case 'k' -> PiecesType.KING; /* This is an illegal move */
                 default -> null;
             };
 
@@ -174,7 +150,7 @@ public class Main {
         }
 
         private void emitMove(Move move) {
-            if (move.isDropIn() || move.isNormal() || move.isPromotion())
+            if (move.isNormal() || move.isPromotion())
                 System.out.print("move ");
             System.out.println(serializeMove(move));
         }

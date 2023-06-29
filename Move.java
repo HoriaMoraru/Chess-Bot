@@ -8,7 +8,7 @@ public class Move {
 
     /* Piece to promote a pawn advancing to last row, or
     *  piece to drop-in (from captured assets) */
-    private final Optional<Pieces> replacement;
+    private final Optional<PiecesType> replacement;
 
     /*
       Use the following 4 constructors for Move:
@@ -26,11 +26,11 @@ public class Move {
         return destination;
     }
 
-    public Optional<Pieces> getReplacement() {
+    public Optional<PiecesType> getReplacement() {
         return replacement;
     }
 
-    private Move(String source, String destination, Pieces replacement) {
+    private Move(String source, String destination, PiecesType replacement) {
         this.source = Optional.ofNullable(source);
         this.destination = Optional.ofNullable(destination);
         this.replacement = Optional.ofNullable(replacement);
@@ -50,14 +50,6 @@ public class Move {
      */
     public boolean isPromotion() {
         return source.isPresent() && destination.isPresent() && replacement.isPresent();
-    }
-
-    /**
-     * Check whether the move is a crazyhouse drop-in (place a captured enemy piece
-     * to fight on your side)
-     */
-    public boolean isDropIn() {
-        return source.isEmpty() && destination.isPresent() && replacement.isPresent();
     }
 
     /**
@@ -82,19 +74,8 @@ public class Move {
      * @param replacement piece to promote to (must not be pawn or king)
      * @return move to be sent to board
      */
-    public static Move promote(String source, String destination, Pieces replacement) {
+    public static Move promote(String source, String destination, PiecesType replacement) {
         return new Move(source, destination, replacement);
-    }
-
-    /**
-     * Emit a drop-in (Crazyhouse specific move where player summons
-     * a captured piece onto a free tile. Pawns can not be dropped in first and last rows)
-     * @param destination
-     * @param replacement
-     * @return move to be sent to board
-     */
-    public static Move dropIn(String destination, Pieces replacement) {
-        return new Move(null, destination, replacement);
     }
 
     public static Move resign() {

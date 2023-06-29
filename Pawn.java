@@ -227,4 +227,9 @@ public class Pawn extends Piece {
             return false;
         }
     }
+
+    @Override
+    protected PiecesType getType() {
+        return PiecesType.PAWN;
+    }
 }

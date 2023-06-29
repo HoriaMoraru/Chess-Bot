@@ -9,7 +9,8 @@ public class GameState {
     private PlaySide check = PlaySide.NONE;
     private boolean castlingWhite = true;
     private boolean castlingBlack = true;
-    private final List<Piece> captured = new ArrayList<>();
+    private final List<Piece> capturedWhite = new ArrayList<>();
+    private final List<Piece> capturedBlack = new ArrayList<>();
 
     private GameState() { }
 
@@ -40,7 +41,23 @@ public class GameState {
         return this.castlingBlack;
     }
 
-    public List<Piece> getCaptured() {
-        return this.captured;
+    public List<Piece> getCapturedWhite() {
+        return this.capturedWhite;
+    }
+
+    public List<Piece> getCapturedBlack() {
+        return this.capturedBlack;
+    }
+
+    public void setCurrentPlaySide(PlaySide currentPlaySide) {
+        this.currentPlaySide = currentPlaySide;
+    }
+
+    public void removeFromCapturedWhite(Piece piece) {
+        this.capturedWhite.remove(piece);
+    }
+
+    public void removeFromCapturedBlack(Piece piece) {
+        this.capturedBlack.remove(piece);
     }
 }

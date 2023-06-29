@@ -12,7 +12,7 @@ shuffleOpenings = 0
 StartChildProcess (dir=".") make run
 171 >first : xboard
 protover 2
-180 <first : javac  Bishop.java Board.java Bot.java ChessCONSTANTS.java GameState.java King.java Knight.java Main.java Move.java Pawn.java Piece.java Pieces.java PlaySide.java Position.java Queen.java Rook.java
+180 <first : javac  Bishop.java Board.java Bot.java ChessCONSTANTS.java GameState.java King.java Knight.java Main.java Move.java Pawn.java Piece.java PiecesType.java PlaySide.java Position.java Queen.java Rook.java
 970 <first : King.java:1: error: King is not abstract and does not override abstract method getLegalMoves(Board) in Piece
 970 <first : public class King extends Piece {
 970 <first :        ^

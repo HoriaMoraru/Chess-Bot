@@ -16,6 +16,7 @@ public abstract class Piece {
         return this.currentPosition;
     }
     protected abstract List<Move> getLegalMoves(Board board);
+    protected abstract PiecesType getType();
     protected boolean addMovesUntil(Board board, List<Move> moves, int r, int c) {
         Piece p = board.getState()[r][c];
         if (p == null) {
@@ -90,5 +91,55 @@ public abstract class Piece {
 
     protected boolean moveWithinBounds(int r, int c) {
         return r >= 0 && r < ChessCONSTANTS.BOARD_SIZE && c >= 0 && c < ChessCONSTANTS.BOARD_SIZE;
+    }
+
+    protected static Piece createPieceFromReplacement(PiecesType replacement, PlaySide side, GameState gs)
+    {
+        if (side == PlaySide.WHITE)
+        {
+            if (gs.getCapturedWhite().size() == 0)
+            {
+                return null;
+            }
+        }
+        else
+        {
+            if (gs.getCapturedBlack().size() == 0)
+            {
+                return null;
+            }
+        }
+        return switch (replacement) {
+            case QUEEN -> retrieveCapturedPiece(PiecesType.QUEEN, side, gs);
+            case ROOK -> retrieveCapturedPiece(PiecesType.ROOK, side, gs);
+            case BISHOP -> retrieveCapturedPiece(PiecesType.BISHOP, side, gs);
+            case KNIGHT -> retrieveCapturedPiece(PiecesType.KNIGHT, side, gs);
+            default -> null;
+        };
+    }
+
+    protected static Piece retrieveCapturedPiece(PiecesType replacement, PlaySide side, GameState gs)
+    {
+        if (side == PlaySide.WHITE)
+        {
+            for(Piece p : gs.getCapturedWhite())
+            {
+                if (p.getType() == replacement)
+                {
+                    gs.removeFromCapturedWhite(p);
+                    return p;
+                }
+            }
+        } else {
+            for(Piece p : gs.getCapturedBlack())
+            {
+                if (p.getType() == replacement)
+                {
+                    gs.removeFromCapturedBlack(p);
+                    return p;
+                }
+            }
+        }
+        return null;
     }
 }

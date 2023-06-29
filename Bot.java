@@ -18,18 +18,39 @@ public class Bot {
         /* You might find it useful to also separately record last move in another custom field */
         Position source = new Position(move.getSource().orElse(""));
         Position destination = new Position(move.getDestination().orElse(""));
-        Pieces replacement = move.getReplacement().orElse(null);
 
         Piece sp = this.gs.getBoard().getPiece(source);
         Piece dp = this.gs.getBoard().getPiece(destination);
 
-        if (dp != null && sp != null && sp.getPlaySide() != dp.getPlaySide()) {
-            this.gs.getCaptured().add(dp);
+        /* Check if the destion has a present piece , if it does then remove it */
+        if (dp != null)
+        {
+            if (sideToMove == PlaySide.WHITE) {
+                this.gs.getCapturedBlack().add(dp);
+            } else {
+                this.gs.getCapturedWhite().add(dp);
+            }
+            this.gs.getBoard().removePiece(destination);
         }
-
         this.gs.getBoard().addPiece(sp, destination.getRowIndex(), destination.getColumnIndex());
         this.gs.getBoard().removePiece(source);
 
+        if (move.isPromotion()) {
+            PiecesType replacement = move.getReplacement().orElse(null);
+            Piece replacePiece = Piece.createPieceFromReplacement(replacement, sideToMove, gs);
+            if (replacePiece != null) {
+                this.gs.getBoard().removePiece(destination);
+                this.gs.getBoard().addPiece(replacePiece, destination.getRowIndex(), destination.getColumnIndex());
+            }
+        }
+
+        /* Change the play side */
+        if (sideToMove == PlaySide.WHITE) {
+            this.gs.setCurrentPlaySide(PlaySide.BLACK);
+        }
+        else {
+            this.gs.setCurrentPlaySide(PlaySide.WHITE);
+        }
     }
 
     /**

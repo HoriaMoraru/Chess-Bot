@@ -25,4 +25,8 @@ public class Queen extends Piece {
         return moves;
     }
 
+    @Override
+    protected PiecesType getType() {
+        return PiecesType.QUEEN;
+    }
 }
