@@ -42,6 +42,7 @@ public class Pawn extends Piece {
             firstMove = false;
         }
 
+
         /* Move 1 step forward */
         int newRow = row + direction;
         int[] colOffsets = {1, -1};
