@@ -36,6 +36,14 @@ public class GameState {
         return this.castlingBlack;
     }
 
+    public void setCastling(PlaySide side) {
+        if (side == PlaySide.WHITE) {
+            this.castlingWhite = false;
+        } else {
+            this.castlingBlack = false;
+        }
+    }
+
     public List<Piece> getCapturedWhite() {
         return this.capturedWhite;
     }
@@ -72,5 +80,13 @@ public class GameState {
             }
         }
         return false;
+    }
+
+    public boolean isCheckMate(PlaySide side, Board currentBoard) {
+        return currentBoard.getAllLegalMoves(side).isEmpty();
+    }
+
+    public boolean isGameOver() {
+        return isCheckMate(PlaySide.WHITE, board) || isCheckMate(PlaySide.BLACK, board);
     }
 }

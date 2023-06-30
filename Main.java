@@ -219,7 +219,6 @@ public class Main {
 
         while (true) {
             /* Fetch and execute next command */
-
             engine.executeOneCommand();
         }
     }

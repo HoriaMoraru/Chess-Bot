@@ -11,10 +11,9 @@ public class Move {
     private final Optional<PiecesType> replacement;
 
     /*
-      Use the following 4 constructors for Move:
+      Use the following 3 constructors for Move:
       moveTo(src, dst), if emitting a standard move (advance, capture, castle)
       promote(src, dst, replace), if advancing a pawn to last row
-      dropIn(dst, replace), if placing a captured piece
       resign(), if you want to resign
      */
 
@@ -34,6 +33,16 @@ public class Move {
         this.source = Optional.ofNullable(source);
         this.destination = Optional.ofNullable(destination);
         this.replacement = Optional.ofNullable(replacement);
+    }
+
+    public boolean isPawnFirstMove2Steps() {
+        return source.isPresent() && destination.isPresent() && replacement.isEmpty()
+                && source.get().charAt(1) == '2'
+                && destination.get().charAt(1) == '4';
+    }
+
+    public boolean isCastling() {
+        return source.isPresent() && destination.isPresent() && replacement.isEmpty() && source.get().charAt(0) == 'e' && destination.get().charAt(0) == 'g';
     }
 
     /**

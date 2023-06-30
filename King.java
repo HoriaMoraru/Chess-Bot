@@ -14,9 +14,6 @@ public class King extends Piece {
         int column = currentPosition.getColumnIndex();
 
         /* The king can go in any direction , but can move only one step */
-        /* We need the GameState , in order to check if the king is in check */
-        GameState gs = GameState.getInstance();
-
         int[] rowOffsets = {1, 1, 1, 0, 0, -1, -1, -1};
         int[] colOffsets = {1, 0, -1, 1, -1, 1, 0, -1};
 

@@ -27,17 +27,8 @@ public class Position {
     public int getRowIndex() {
         return this.rowIndex;
     }
-
-    public void setRowIndex(int rowIndex) {
-        this.rowIndex = rowIndex;
-    }
-
     public int getColumnIndex() {
         return this.columnIndex;
-    }
-
-    public void setColumnIndex(int columnIndex) {
-        this.columnIndex = columnIndex;
     }
     public String serializePosition() {
         final String rowAsString = String.valueOf(this.rowIndex);

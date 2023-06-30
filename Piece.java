@@ -15,6 +15,9 @@ public abstract class Piece {
     protected Position getCurrentPosition() {
         return this.currentPosition;
     }
+    protected void changePosition(Position newPosition) {
+        this.currentPosition = newPosition;
+    }
     protected abstract List<Move> getLegalMoves(Board board);
     protected abstract PiecesType getType();
 

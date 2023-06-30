@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Board  {
 
     private final Piece[][] state;
@@ -72,5 +76,25 @@ public class Board  {
         Piece piece = getPiece(from);
         removePiece(from);
         addPiece(piece, to.getRowIndex(), to.getColumnIndex());
+        piece.changePosition(to);
+    }
+
+    public List<Move> getAllLegalMoves(PlaySide side) {
+        List<Move> moves = new ArrayList<>();
+
+        for (int row = 0; row < ChessCONSTANTS.BOARD_SIZE; row++) {
+            for (int column = 0; column < ChessCONSTANTS.BOARD_SIZE; column++) {
+                Piece piece = getPiece(new Position(row, column));
+                if (piece != null && piece.getPlaySide() == side) {
+                    moves.addAll(piece.getLegalMoves(this));
+                }
+            }
+        }
+        return moves;
+    }
+
+    public Move getRandomMove(PlaySide side) {
+        List<Move> allMoves = getAllLegalMoves(side);
+        return allMoves.get(new Random().nextInt(allMoves.size()));
     }
 }
