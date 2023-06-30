@@ -16,10 +16,7 @@ public class Bot {
      */
     public void recordMove(Move move, PlaySide sideToMove) {
         /* You might find it useful to also separately record last move in another custom field */
-        Position source = new Position(move.getSource().orElse(""));
         Position destination = new Position(move.getDestination().orElse(""));
-
-        Piece sp = this.gs.getBoard().getPiece(source);
         Piece dp = this.gs.getBoard().getPiece(destination);
 
         /* Check if the destion has a present piece , if it does then remove it */
@@ -32,14 +29,12 @@ public class Bot {
             }
             this.gs.getBoard().removePiece(destination);
         }
-        this.gs.getBoard().addPiece(sp, destination.getRowIndex(), destination.getColumnIndex());
-        this.gs.getBoard().removePiece(source);
+        this.gs.getBoard().makeMove(move);
 
         if (move.isPromotion()) {
             PiecesType replacement = move.getReplacement().orElse(null);
             Piece replacePiece = Piece.createPieceFromReplacement(replacement, sideToMove, gs);
             if (replacePiece != null) {
-                this.gs.getBoard().removePiece(destination);
                 this.gs.getBoard().addPiece(replacePiece, destination.getRowIndex(), destination.getColumnIndex());
             }
         }

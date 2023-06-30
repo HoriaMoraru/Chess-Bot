@@ -11,3 +11,5 @@
 	Rook.java,9\7\97ffa6114a472925053ac6da3ad8620ffc17213d
 <
 xboard.debug,4\a\4acd75e0abc7813210dd402b37173e623b3cf6ea
+;
+Knight.java,f\d\fddd5022178bb16652d85e15e360bfdb42267de4

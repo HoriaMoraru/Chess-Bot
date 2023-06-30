@@ -4,9 +4,8 @@ import java.util.List;
 public class GameState {
     /* GameState class is a SINGLETON class , we do not need more instances of this class per game */
     private static GameState instance = null;
-    private Board board = new Board();
+    private final Board board = new Board();
     private PlaySide currentPlaySide = PlaySide.WHITE;
-    private PlaySide check = PlaySide.NONE;
     private boolean castlingWhite = true;
     private boolean castlingBlack = true;
     private final List<Piece> capturedWhite = new ArrayList<>();
@@ -27,10 +26,6 @@ public class GameState {
 
     public PlaySide getCurrentPlaySide() {
         return this.currentPlaySide;
-    }
-
-    public PlaySide getCheck() {
-        return this.check;
     }
 
     public boolean isCastlingWhite() {
@@ -61,22 +56,21 @@ public class GameState {
         this.capturedBlack.remove(piece);
     }
 
-    public void isCheck(Position kingPosition, PlaySide side) {
-        this.check = PlaySide.NONE;
-        List<Move> moves = new ArrayList<>();
+    public boolean isCheck(Position kingPosition, PlaySide side, Board currentBoard) {
         for (int r = 0; r < ChessCONSTANTS.BOARD_SIZE; r++) {
             for (int c = 0; c < ChessCONSTANTS.BOARD_SIZE; c++) {
-                Piece p = this.board.getState()[r][c];
+                Piece p = currentBoard.getState()[r][c];
                 if (p != null && p.getPlaySide() != side) {
-                    moves.addAll(p.getLegalMoves(this.board));
+                    List<Move> moves = p.getLegalMoves(board);
+
+                    for (Move move : moves) {
+                        if (move.parsePosition()[1] == kingPosition) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
-        for (Move move : moves) {
-            if (move.getDestination().orElse("").equals(kingPosition.serializePosition())) {
-                this.check = side;
-                break;
-            }
-        }
+        return false;
     }
 }

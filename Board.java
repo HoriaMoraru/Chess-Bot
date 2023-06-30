@@ -1,6 +1,6 @@
 public class Board  {
 
-    private Piece[][] state;
+    private final Piece[][] state;
 
     public Board() {
         state = new Piece[ChessCONSTANTS.BOARD_SIZE][ChessCONSTANTS.BOARD_SIZE];
@@ -56,14 +56,21 @@ public class Board  {
         }
     }
 
-    public Board initializeBoard() {
+    public void initializeBoard() {
         /* Adding the pawns for both sides */
         addPawns(PlaySide.WHITE);
         addPawns(PlaySide.BLACK);
         /* Adding rest of the pieces for both sides */
         addAllPiecesExceptPawns(PlaySide.WHITE);
         addAllPiecesExceptPawns(PlaySide.BLACK);
+    }
 
-        return this;
+    public void makeMove(Move move) {
+        Position from = new Position(move.getSource().orElse(""));
+        Position to = new Position(move.getDestination().orElse(""));
+
+        Piece piece = getPiece(from);
+        removePiece(from);
+        addPiece(piece, to.getRowIndex(), to.getColumnIndex());
     }
 }

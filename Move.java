@@ -84,8 +84,8 @@ public class Move {
 
     public Position[] parsePosition() {
         Position[] positions = new Position[2];
-        positions[0] = new Position(source.orElse(null));
-        positions[1] = new Position(destination.orElse(null));
+        positions[0] = new Position(source.orElse(""));
+        positions[1] = new Position(destination.orElse(""));
 
         return positions;
     }

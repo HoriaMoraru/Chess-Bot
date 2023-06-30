@@ -11,3 +11,5 @@
 PiecesType.java,c\5\c5ec6f33edd70dbd5095b6aedce9b01a04457f1c
 <
 xboard.debug,4\a\4acd75e0abc7813210dd402b37173e623b3cf6ea
+;
+Knight.java,f\d\fddd5022178bb16652d85e15e360bfdb42267de4

@@ -8,6 +8,8 @@ public class Position {
         this.columnIndex = columnIndex;
     }
     public Position(String positionAsString) {
+        if (positionAsString.length() != 2)
+            throw new IllegalArgumentException("Position deserialization error: " + positionAsString);
         this.rowIndex = positionAsString.charAt(1) - '0';
         switch (positionAsString.charAt(0)) {
             case 'a' -> this.columnIndex = 0;

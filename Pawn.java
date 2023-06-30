@@ -68,6 +68,21 @@ public class Pawn extends Piece {
         }
     }
 
+    private void pawnNormalOrPromotion(List<Move> moves, int r, int c) {
+        if (r == ChessCONSTANTS.PAWN_WHITE_PROMOTION_POSITION ||
+                r == ChessCONSTANTS.PAWN_BLACK_PROMOTION_POSITION) {
+            /* Promotion
+             * Promotion is always a QUEEN, because it is the most powerfull piece of the board
+             */
+            moves.add(Move.promote(this.currentPosition.serializePosition(),
+                    new Position(r, c).serializePosition(), PiecesType.QUEEN));
+        }
+        else {
+            moves.add(Move.moveTo(this.currentPosition.serializePosition(),
+                    new Position(r, c).serializePosition()));
+        }
+    }
+
     private void addMovePawnCapture(Board board, List<Move> moves, int r, int c) {
         Piece p = board.getState()[r][c];
         Piece pEnpassant = board.getState()[currentPosition.getRowIndex()][c];
@@ -85,20 +100,5 @@ public class Pawn extends Piece {
     {
         return p == null && enPassant != null && enPassant.getPlaySide() != this.playSide &&
                 enPassant.getType() == PiecesType.PAWN && ((Pawn) enPassant).isEnPassant();
-    }
-
-    private void pawnNormalOrPromotion(List<Move> moves, int r, int c) {
-        if (r == ChessCONSTANTS.PAWN_WHITE_PROMOTION_POSITION ||
-                r == ChessCONSTANTS.PAWN_BLACK_PROMOTION_POSITION) {
-            /* Promotion
-             * Promotion is always a QUEEN, because it is the most powerfull piece of the board
-             */
-            moves.add(Move.promote(this.currentPosition.serializePosition(),
-                    new Position(r, c).serializePosition(), PiecesType.QUEEN));
-        }
-        else {
-            moves.add(Move.moveTo(this.currentPosition.serializePosition(),
-                    new Position(r, c).serializePosition()));
-        }
     }
 }
