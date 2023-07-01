@@ -25,7 +25,7 @@ public class Bot {
             ( (Pawn) sp).setEnPassant(move.isPawnFirstMove2Steps());
         }
 
-        if (sp.getType() == PiecesType.KING) {
+        if (sp.getType() == PiecesType.KING && move.isCastling()) {
             gs.setCastling(sideToMove);
         }
 
@@ -33,16 +33,17 @@ public class Bot {
         if (dp != null)
         {
             if (sideToMove == PlaySide.WHITE) {
-                this.gs.getCapturedBlack().add(dp);
+                this.gs.captureWhite(dp);
             } else {
-                this.gs.getCapturedWhite().add(dp);
+                this.gs.captureBlack(dp);
             }
         }
         this.gs.getBoard().makeMove(move);
 
         if (move.isPromotion()) {
             PiecesType replacement = move.getReplacement().orElse(null);
-            Piece replacePiece = Piece.createPieceFromReplacement(replacement, sideToMove, gs);
+            assert replacement != null;
+            Piece replacePiece = Piece.createPieceForReplacement(replacement, sideToMove, destination);
             if (replacePiece != null) {
                 this.gs.getBoard().addPiece(replacePiece, destination.getRowIndex(), destination.getColumnIndex());
             }

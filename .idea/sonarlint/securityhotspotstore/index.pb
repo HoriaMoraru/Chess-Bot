@@ -13,3 +13,5 @@
 xboard.debug,4\a\4acd75e0abc7813210dd402b37173e623b3cf6ea
 ;
 Knight.java,f\d\fddd5022178bb16652d85e15e360bfdb42267de4
+=
+Position.java,d\6\d6d1675bca8f6d089fe3ed83c4d9b1b5f604f48d

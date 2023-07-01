@@ -44,24 +44,16 @@ public class GameState {
         }
     }
 
-    public List<Piece> getCapturedWhite() {
-        return this.capturedWhite;
-    }
-
-    public List<Piece> getCapturedBlack() {
-        return this.capturedBlack;
-    }
-
     public void setCurrentPlaySide(PlaySide currentPlaySide) {
         this.currentPlaySide = currentPlaySide;
     }
 
-    public void removeFromCapturedWhite(Piece piece) {
-        this.capturedWhite.remove(piece);
+    public void captureWhite(Piece piece) {
+        this.capturedWhite.add(piece);
     }
 
-    public void removeFromCapturedBlack(Piece piece) {
-        this.capturedBlack.remove(piece);
+    public void captureBlack(Piece piece) {
+        this.capturedBlack.add(piece);
     }
 
     public boolean isCheck(Position kingPosition, PlaySide side, Board currentBoard) {
