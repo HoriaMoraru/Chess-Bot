@@ -28,15 +28,15 @@ public class GameState {
         return this.currentPlaySide;
     }
 
-    public boolean isCastlingWhite() {
-        return this.castlingWhite;
+    public boolean castlingPossible(PlaySide side) {
+        if (side == PlaySide.WHITE) {
+            return this.castlingWhite;
+        } else {
+            return this.castlingBlack;
+        }
     }
 
-    public boolean isCastlingBlack() {
-        return this.castlingBlack;
-    }
-
-    public void setCastling(PlaySide side) {
+    public void disableCastling(PlaySide side) {
         if (side == PlaySide.WHITE) {
             this.castlingWhite = false;
         } else {

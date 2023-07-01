@@ -25,8 +25,8 @@ public class Bot {
             ( (Pawn) sp).setEnPassant(move.isPawnFirstMove2Steps());
         }
 
-        if (sp.getType() == PiecesType.KING && move.isCastling()) {
-            gs.setCastling(sideToMove);
+        if (sp.getType() == PiecesType.KING && move.isCastling() && gs.castlingPossible(sideToMove)) {
+            gs.disableCastling(sideToMove);
         }
 
         /* Check if the destion has a present piece , if it does then remove it */

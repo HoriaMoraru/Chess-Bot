@@ -42,7 +42,8 @@ public class Move {
     }
 
     public boolean isCastling() {
-        return source.isPresent() && destination.isPresent() && replacement.isEmpty() && source.get().charAt(0) == 'e' && destination.get().charAt(0) == 'g';
+        return source.isPresent() && destination.isPresent() && replacement.isEmpty()
+                && source.get().charAt(0) == 'e' && destination.get().charAt(0) == 'g';
     }
 
     /**
